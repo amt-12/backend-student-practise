@@ -8,6 +8,7 @@ const RegisterModel = new Schema({
     password: { 
         type: String, 
         required: true,
+        
     },
     phoneNumber: {
         type: Number,

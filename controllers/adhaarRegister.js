@@ -1,14 +1,17 @@
 const RegisterModel = require("../model/Register.model");
+const { registerValidation } = require("../service/validation_schema");
 
 const adhaarRegister = async (req, res, next) => {
-  const registerData = req.body;
-  //step 1: req
+  const registerData = await registerValidation.validateAsync(req.body);
+  //step 1: req and validate
   console.log("registerData:", registerData);
 
   //Step2 :data extract
   const { username, password, phoneNumber } = registerData;
+
+  
   console.log("username:", username);
-  //Step 3 : validate MONGO DB
+  //Step 3 : verify MONGO DB
   const registerDataCheck = await RegisterModel.findOne({
     username: username,
   });
