@@ -10,6 +10,7 @@ Waiter.use("/api",apiRoutes)
 
 Waiter.use("/api",(req,res,next)=>{
     res.json({status:"API route no found"})
+    next(error)
 })
 
 

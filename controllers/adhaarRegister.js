@@ -2,6 +2,7 @@ const RegisterModel = require("../model/Register.model");
 const { registerValidation } = require("../service/validation_schema");
 
 const adhaarRegister = async (req, res, next) => {
+ try {
   const registerData = await registerValidation.validateAsync(req.body);
   //step 1: req and validate
   console.log("registerData:", registerData);
@@ -17,17 +18,22 @@ const adhaarRegister = async (req, res, next) => {
   });
   console.log("registerDataCheck:", registerDataCheck);
   if (registerDataCheck) {
-    return res.json({ status: "Username already exists" });
+    return res.status(400).json({ message: "Username already exists" });
   }
+  const hashPassword = await bcrypt.hash(password, 10);
   //Step4 : store in MONGO DB
   const registerModel = new RegisterModel({
     username: username,
-    password: password,
+    password: hashPassword,
     phoneNumber: phoneNumber,
   });
 
   await registerModel.save();
   //Step 5 : response
-  res.json({ status: "Registration Successful" });
+  res.status(200).json({ message: "Registration Successful" });
+ } catch (error) {
+  next(error);
+  console.log("Error in registration:", error);
+ }
 };
 module.exports = adhaarRegister;
