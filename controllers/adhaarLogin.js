@@ -1,6 +1,7 @@
 const RegisterModel = require("../model/Register.model");
 const { loginValidation } = require("../service/validation_schema");
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const adhaarLogin = async (req, res, next) => {
  try {
   const loginData = await loginValidation.validateAsync(req.body);

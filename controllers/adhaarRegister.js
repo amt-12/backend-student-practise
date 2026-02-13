@@ -1,6 +1,6 @@
 const RegisterModel = require("../model/Register.model");
 const { registerValidation } = require("../service/validation_schema");
-
+const bcrypt = require("bcrypt");
 const adhaarRegister = async (req, res, next) => {
  try {
   const registerData = await registerValidation.validateAsync(req.body);
