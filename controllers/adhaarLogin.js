@@ -27,9 +27,16 @@ const adhaarLogin = async (req, res, next) => {
 if (!isPasswordMatch) {
   return res.status(400).json({ message: "Invalid Password" });
 }
-const token = jwt.sign({ userId: loginDataCheck._id }, "sdfdsfdsfdsfdsfdsf", { expiresIn: "1h" });
+const token = jwt.sign({ userId: loginData }, "sdfdsfdsfdsfdsfdsf", { expiresIn: "1h" });
   //Step 5 : response
-  res.status(200).json({ message: "Registration Successful" ,jwtToken:token});
+  res.cookie("jwtToken",token,
+    {
+      httpOnly:true,
+      maxAge:3600000,
+      
+    })
+
+  res.status(200).json({ message: "Registration Successful"});
  } catch (error) {
   next(error);
   console.log("Error in registration:", error);
