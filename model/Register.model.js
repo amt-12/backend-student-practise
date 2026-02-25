@@ -1,18 +1,31 @@
 const { mongoose,Schema } = require("mongoose");
 
 const RegisterModel = new Schema({
+    email:{
+        type: String,
+        required: true,
+    },
+    name: {
+        type: String,
+
+    },
     username: { 
         type: String, 
-        required: true,
+       
+    },
+    avatar: {
+        type: String,
     },
     password: { 
         type: String, 
-        required: true,
         
     },
     phoneNumber: {
         type: Number,
-        required: true,
+
     },
+    provider: {
+        type: String,
+    }
 })
 module.exports = mongoose.model("RegisterModel",RegisterModel);
