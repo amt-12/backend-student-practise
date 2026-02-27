@@ -5,27 +5,17 @@ const RegisterModel = new Schema({
         type: String,
         required: true,
     },
-    name: {
-        type: String,
-
-    },
-    username: { 
-        type: String, 
-       
-    },
-    avatar: {
-        type: String,
-    },
     password: { 
         type: String, 
         
     },
-    phoneNumber: {
-        type: Number,
-
-    },
     provider: {
         type: String,
+    },
+    role:{
+        type: String,
+        default:"user",
+        enum:["user","doctor"]
     }
 })
 module.exports = mongoose.model("RegisterModel",RegisterModel);

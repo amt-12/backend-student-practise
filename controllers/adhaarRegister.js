@@ -8,24 +8,25 @@ const adhaarRegister = async (req, res, next) => {
   console.log("registerData:", registerData);
 
   //Step2 :data extract
-  const { username, password, phoneNumber } = registerData;
+  const { email, password} = registerData;
 
   
-  console.log("username:", username);
+  console.log("email:", email);
   //Step 3 : verify MONGO DB
   const registerDataCheck = await RegisterModel.findOne({
-    username: username,
+    email: email,
   });
   console.log("registerDataCheck:", registerDataCheck);
   if (registerDataCheck) {
-    return res.status(400).json({ message: "Username already exists" });
+    return res.status(400).json({ message: "email already exists" });
   }
   const hashPassword = await bcrypt.hash(password, 10);
   //Step4 : store in MONGO DB
   const registerModel = new RegisterModel({
-    username: username,
+    email: email,
     password: hashPassword,
-    phoneNumber: phoneNumber,
+    provider: "myLocalUser",
+    
   });
 
   await registerModel.save();

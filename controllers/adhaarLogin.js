@@ -9,15 +9,15 @@ const adhaarLogin = async (req, res, next) => {
   console.log("loginData:", loginData);
 
   //Step2 :data extract
-  const { username, password } = loginData;
+  const { email, password } = loginData;
 
   
-  console.log("username:", username);
+  console.log("email:", email);
   //Step 3 : verify MONGO DB
   const loginDataCheck = await RegisterModel.findOne({
-    username: username,
+    email: email,
   });
-  console.log("loginDataCheck:", loginDataCheck);
+  console.log("loginDataCheck:", loginDataCheck.role);
   if (!loginDataCheck) {
     return res.status(400).json({ message: "User Not Found, Please Register" });
   }
@@ -27,7 +27,13 @@ const adhaarLogin = async (req, res, next) => {
 if (!isPasswordMatch) {
   return res.status(400).json({ message: "Invalid Password" });
 }
-const token = jwt.sign({ userId: loginData }, "sdfdsfdsfdsfdsfdsf", { expiresIn: "1h" });
+const userPayload = {
+  userId: loginDataCheck._id,
+  role: loginDataCheck.role,
+  email: email,
+  password: password,
+};
+const token = jwt.sign({ userId: userPayload }, "sdfdsfdsfdsfdsfdsf", { expiresIn: "1h" });
   //Step 5 : response
   res.cookie("jwtToken",token,
     {
@@ -36,7 +42,7 @@ const token = jwt.sign({ userId: loginData }, "sdfdsfdsfdsfdsfdsf", { expiresIn:
       
     })
 
-  res.status(200).json({ message: "Registration Successful"});
+  res.status(200).json({ message: "Login Successful"});
  } catch (error) {
   next(error);
   console.log("Error in registration:", error);
