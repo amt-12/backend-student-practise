@@ -42,7 +42,7 @@ const token = jwt.sign({ userId: userPayload }, "sdfdsfdsfdsfdsfdsf", { expiresI
       
     })
 
-  res.status(200).json({ message: "Login Successful",jwtToken:token });
+  res.status(200).json({ message: "Login Successful"});
  } catch (error) {
   next(error);
   console.log("Error in registration:", error);

@@ -2,6 +2,7 @@ const adhaarLogin = require("../../controllers/adhaarLogin");
 const adhaarRegister = require("../../controllers/adhaarRegister");
 const getAdhaarRegisterUser = require("../../controllers/getAdhaarRegisterUser");
 const googleLogin = require("../../controllers/googleLogin");
+const uploadImage = require("../../controllers/uploadImage");
 const checkToken = require("../../middleware/checkToken");
 
 
@@ -11,7 +12,7 @@ Waiter.post("/adhaarRegister",adhaarRegister)
 Waiter.post("/adhaarLogin",adhaarLogin)
 Waiter.post("/auth/google",googleLogin)
 Waiter.get("/getAdhaarRegisterUser",checkToken,getAdhaarRegisterUser)
-
+Waiter.post("/uploadImage",uploadImage)
 
 
 
