@@ -8,10 +8,12 @@ Waiter.use("/api",apiRoutes)
 
 
 
-Waiter.use("/api",(req,res,next)=>{
-    res.json({status:"API route no found"})
-    next()
-})
+// Removed catch-all handler to allow proper routing
+// Waiter.use("/api",(req,res,next)=>{
+//     res.json({status:"API route no found"})
+//     next()
+// })
+// 
 
 
 
